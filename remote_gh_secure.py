@@ -5,9 +5,11 @@ from prefect.runner.storage import GitRepository
 
 if __name__ == "__main__":
     serve(
-        storage=GitRepository(
-            repository="https://github.com/discdiver/qa.git",
-            access_token=Secret.load("gh-token").get(),
+        remote_flow_to_deployment(
+            storage=GitRepository(
+                repository="https://github.com/discdiver/qa.git",
+                access_token=Secret.load("gh-token").get(),
+            ),
             entrypoint="basic_flow.py:my_flow",
             name="test-remote1",
         )
